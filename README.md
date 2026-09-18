@@ -247,13 +247,21 @@ All endpoints except `/auth/register` and `/auth/login` require a
 ### Backend (Render, Railway, Fly.io, etc.)
 1. Set `DATABASE_URL` to a managed PostgreSQL instance.
 2. Set a strong, random `SECRET_KEY`.
-3. Set `CORS_ORIGINS` to your deployed frontend URL.
-4. Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
+3. Set `CORS_ORIGINS` to your deployed frontend URL, for example `https://a-six-vert.vercel.app`.
+4. Root directory: `backend`.
+5. Build command: `pip install -r requirements.txt`.
+6. Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`.
+7. Run `python seed_demo_data.py` once after the database is configured.
 
 ### Frontend (Vercel, Netlify, etc.)
-1. Build command: `npm run build`
-2. Output directory: `dist`
-3. Set `VITE_API_URL` to your deployed backend URL.
+1. Root directory: `frontend`.
+2. Build command: `npm run build`.
+3. Output directory: `dist`.
+4. Set `VITE_API_URL` to the deployed backend URL, without `/auth` at the end.
+
+For Vercel, add `VITE_API_URL` under **Settings → Environment Variables** for the
+Production environment, then redeploy. The frontend cannot use `localhost` or
+`127.0.0.1` after it has been deployed.
 
 ---
 
