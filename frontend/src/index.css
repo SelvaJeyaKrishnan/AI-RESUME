@@ -1,0 +1,89 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    @apply antialiased;
+  }
+  body {
+    @apply bg-paper text-ink font-sans;
+  }
+  .dark body {
+    @apply bg-ink text-paper;
+  }
+  ::selection {
+    @apply bg-amber-400/30;
+  }
+  :focus-visible {
+    outline: 2px solid #3E4A8A;
+    outline-offset: 2px;
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2 text-sm font-medium transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn bg-brand-600 text-white hover:bg-brand-700;
+  }
+  .btn-secondary {
+    @apply btn bg-white text-ink border border-line hover:bg-paper-dim dark:bg-ink-soft dark:text-paper dark:border-lineDark;
+  }
+  .btn-ghost {
+    @apply btn text-ink/70 hover:text-ink hover:bg-black/5 dark:text-paper/70 dark:hover:text-paper dark:hover:bg-white/5;
+  }
+  .input {
+    @apply w-full rounded-md border border-line bg-white px-3 py-2 text-sm text-ink placeholder:text-ink/40 focus:border-brand-500 focus:ring-1 focus:ring-brand-500 dark:bg-ink-soft dark:border-lineDark dark:text-paper;
+  }
+  .card {
+    @apply rounded-md border border-line bg-white shadow-card dark:bg-ink-soft dark:border-lineDark;
+  }
+  .label-eyebrow {
+    @apply text-xs font-medium tracking-wide text-ink/50 dark:text-paper/50;
+  }
+  .btn-lg {
+    @apply px-6 py-3 text-base rounded-md;
+  }
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+  .surface-raised {
+    @apply rounded-lg border border-line bg-white dark:bg-ink-soft dark:border-lineDark;
+  }
+}
+
+@layer utilities {
+  /* Restrained, single-direction gradient used only for hero + report headers */
+  .bg-hero-wash {
+    background-image:
+      radial-gradient(60rem 30rem at 15% -10%, rgba(62, 74, 138, 0.16), transparent 60%),
+      radial-gradient(40rem 24rem at 95% 0%, rgba(229, 162, 63, 0.12), transparent 60%);
+  }
+  .dark .bg-hero-wash {
+    background-image:
+      radial-gradient(60rem 30rem at 15% -10%, rgba(139, 149, 201, 0.16), transparent 60%),
+      radial-gradient(40rem 24rem at 95% 0%, rgba(229, 162, 63, 0.10), transparent 60%);
+  }
+  .grid-faint {
+    background-image:
+      linear-gradient(to right, rgba(24, 26, 42, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(24, 26, 42, 0.05) 1px, transparent 1px);
+    background-size: 44px 44px;
+  }
+  .dark .grid-faint {
+    background-image:
+      linear-gradient(to right, rgba(246, 245, 241, 0.05) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(246, 245, 241, 0.05) 1px, transparent 1px);
+  }
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
