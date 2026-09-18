@@ -25,7 +25,7 @@ export default function LoginPage() {
       const message = !err.response
         ? 'Cannot reach the ResumeAI server. Check that VITE_API_URL points to your deployed backend.'
         : err.response.data?.detail || 'Could not sign in. Check your email and password.'
-      toast.error(message)
+      toast.error(message, { id: 'auth-error' })
     } finally {
       setLoading(false)
     }

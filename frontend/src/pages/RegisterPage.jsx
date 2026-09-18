@@ -20,7 +20,10 @@ export default function RegisterPage() {
       await register(form)
       navigate('/welcome', { state: { next: '/analyze' } })
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Could not create your account.')
+      const message = !err.response || err.response.status === 404
+        ? 'Cannot reach the ResumeAI server. Set VITE_API_URL to your deployed backend URL in Vercel.'
+        : err.response.data?.detail || 'Could not create your account.'
+      toast.error(message, { id: 'auth-error' })
     } finally {
       setLoading(false)
     }
