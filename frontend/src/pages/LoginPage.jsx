@@ -22,7 +22,10 @@ export default function LoginPage() {
       // Route through the welcome transition, preserving any intended destination
       navigate('/welcome', { state: { next: location.state?.next || '/analyze' } })
     } catch (err) {
-      toast.error(err.response?.data?.detail || 'Could not sign in. Check your email and password.')
+      const message = !err.response
+        ? 'Cannot reach the ResumeAI server. Check that VITE_API_URL points to your deployed backend.'
+        : err.response.data?.detail || 'Could not sign in. Check your email and password.'
+      toast.error(message)
     } finally {
       setLoading(false)
     }
