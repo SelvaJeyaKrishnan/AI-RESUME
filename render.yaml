@@ -1,0 +1,26 @@
+services:
+  - type: web
+    name: resumeai-backend
+    env: python
+    rootDir: backend
+    buildCommand: pip install --upgrade pip && pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /health
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        value: sqlite:///./resumeai.db
+      - key: CORS_ORIGINS
+        value: https://resumeai-frontend.onrender.com
+      - key: MAX_FILE_SIZE_MB
+        value: "10"
+
+  - type: static
+    name: resumeai-frontend
+    rootDir: frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://resumeai-backend.onrender.com
